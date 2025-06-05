@@ -2,17 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('ST1-6562515m') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('ST2-6562515m') {
             steps {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('ST3-6562515m') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+        stage('ST4-6562515m') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+        stage('ST5-6562515m') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+        stage('ST6-6562515m') {
             steps {
                 echo 'Deploying....'
             }
