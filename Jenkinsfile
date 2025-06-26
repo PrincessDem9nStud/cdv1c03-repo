@@ -10,27 +10,20 @@ pipeline {
         stage('ST2-6562515m') {
             steps {
                    script {
-                    def recentContainer = sh(
+                    //check if container is maps to port 32700 on host
+                       def result = sh(
                         script: '''
-                            docker ps -a --format "{{.ID}} {{.CreatedAt}}" |
-                            while read id date time tz; do
-                            container_time=$(date -d "$date $time $tz" +%s)
-                            now=$(date +%s)
-                            if [ $(($now - $container_time)) -lt 1200 ]; then
-                            echo "Recent container: $id"
-                            break
-                            fi
-                            done
-                            ''',
+                            docker ps --format '{{.ID}} {{.Names}} {{.Ports}}' | grep '0.0.0.0:32700->' || true
+                        ''',
                         returnStdout: true
-                        ).trim()
+                    ).trim()
 
-                    if (recentContainer) {
+                    if (result) {
                         echo "ST2-6562515m: Server1 is successfully created"
                     } else {
-                        echo "ST2-6562515m: No recent containers found"
-                        }
-                    }                
+                        error "No container is exposing port 32700." 
+                      }     
+                    }       
             }
         }
         stage('ST3-6562515m') {
