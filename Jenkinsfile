@@ -9,24 +9,28 @@ pipeline {
         }
         stage('ST2-6562515m') {
             steps {
-                     script {
-                    def recentContainer = sh(
-                        script: '''
-                            docker ps -a --format "{{.ID}} {{.CreatedAt}}" |
-                            while read id date time tz; do
-                                container_time=$(date -d "$date $time $tz" +%s)
-                                now=$(date +%s)
-                                if [ $(($now - $container_time)) -lt 300 ]; then
-                                    echo "Recent container: $id"
-                                    break
-                                fi
-                            done
-                        ''',
-                        returnStdout: true
-                    ).trim()
-                    }
-                
-                echo 'ST2-6562515m: Server1 is successfully created'
+                   script {
+            def recentContainer = sh(
+                script: '''
+                    docker ps -a --format "{{.ID}} {{.CreatedAt}}" |
+                    while read id date time tz; do
+                        container_time=$(date -d "$date $time $tz" +%s)
+                        now=$(date +%s)
+                        if [ $(($now - $container_time)) -lt 300 ]; then
+                            echo "Recent container: $id"
+                            break
+                        fi
+                    done
+                ''',
+                returnStdout: true
+            ).trim()
+
+            if (recentContainer) {
+                echo "ST2-6562515m: Server1 is successfully created"
+            } else {
+                echo "ST2-6562515m: No recent containers found"
+            }
+        }
             }
         }
         stage('ST3-6562515m') {
