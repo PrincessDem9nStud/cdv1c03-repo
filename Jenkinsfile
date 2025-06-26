@@ -1,7 +1,7 @@
 pipeline {
     agent{
         docker {
-            image "server1-image-6562515m"
+            image 'server1-image-6562515m'
         }
     }
             
