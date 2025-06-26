@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent{
+        docker {
+            image "server1-image-6562515m"
+        }
+    }
+            
     stages {
         stage('ST1-6562515m') {
             steps {
