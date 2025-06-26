@@ -2,6 +2,7 @@ pipeline {
     agent{
         docker {
             image 'server1-image-6562515m'
+            args '-p 32700:80'
         }
     }
             
