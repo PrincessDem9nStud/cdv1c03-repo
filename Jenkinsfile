@@ -53,7 +53,7 @@ pipeline {
                   }
         stage('ST6-6562515m') {
             steps {
-                echo 'Deploying....'
+                echo 'ST6-6562515m: "Ready for next phase'
             }
         }
     }
